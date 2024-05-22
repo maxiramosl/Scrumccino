@@ -1,0 +1,50 @@
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+<div class="row">   
+    <div class="col-2"></div>
+    <div class="col-8">
+        <label for="mail" class="form-label">Correo Electrónico: </label>
+        <input
+          type="text"
+          class="form-control"
+          name="mail"
+          placeholder="correo@example.com"
+          id="mail"
+          required
+        />
+    </div>
+</div>
+
+<div class="row">   
+    <div class="col-2"></div>
+    <div class="col-8">
+        <label for="contraseña" class="form-label">Contraseña: </label>
+        <input
+          type="password"
+          class="form-control"
+          name="contraseña"
+          placeholder="contraseña"
+          id="contraseña"
+          required
+        />
+    </div>
+</div>
+
+<div class="row" style="margin-top: 3vh;">
+    <div class="col-5"></div>
+    <div class="col-7"> <button> Entrar </button> </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
