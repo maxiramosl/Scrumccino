@@ -11,11 +11,24 @@ def login(request):
     if request.method == "POST":
         contraseña = request.POST.get("contraseña")
         mail = request.POST.get("mail")
+
+        if "@" in mail:
+            mail = mail
+        else:
+            try:
+                nombre = mail
+                user = Usuario.objects.get(nombre=nombre)
+                mail = user.mail
+            except Usuario.DoesNotExist:
+                mail = "ERR-01"
+
+
+
         try:
             usuario_selec = Usuario.objects.get(mail=mail)
-            if(str(contraseña) == str(usuario_selec.password)):
+            if(str(contraseña) == str(usuario_selec.password) and mail != "ERR-01"):
                 datos={}
-                datos["nombre"]=usuario_selec.__str__
+                datos["nombre"]=usuario_selec.nombre
                 return render(request, 'pivote/initial.html',datos)
             else:
                 messages.error(request, "ERROR: Contraseña incorrecta, por favor vuelva a intentarlo.")

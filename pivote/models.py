@@ -1,7 +1,8 @@
 from django.db import models
 
 class Usuario(models.Model):
-    mail = models.CharField(max_length=35)
+    nombre = models.CharField(max_length=50, unique=True)
+    mail = models.CharField(max_length=35, unique=True)
     password = models.CharField(max_length=35)
 
     def __str__(self):
