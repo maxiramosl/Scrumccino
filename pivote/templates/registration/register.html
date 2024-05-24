@@ -1,0 +1,22 @@
+{% extends 'pivote/base.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+
+<div class="signupFrm">
+    <form id="registro" action="" method="post" class="form">
+      {% csrf_token %}
+      <h1 class="title">Registrate</h1>
+      
+      {{ form | crispy }}
+
+  
+      <button class="btn btn-sm btn-primary float-end" type="submit">Registrarse</button>
+    </form>
+  </div>
+
+
+
+{% endblock %}

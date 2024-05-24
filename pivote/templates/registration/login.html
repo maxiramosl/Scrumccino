@@ -1,0 +1,20 @@
+{% extends 'pivote/base.html' %}
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+  <div class="signupFrm">
+    <form id="formulario" action="" method="post" class="form">
+      {% csrf_token %}
+      <h1 class="title">Sign up</h1>
+      
+      {{ form | crispy }}
+
+      <button type="submit" class="btn btn-sm btn-primary float-end">Registrate</button>
+  
+      <button type="submit" class="submitBtn">Iniciar sesion</button>
+    </form>
+  </div>
+
+
+  {% endblock %}

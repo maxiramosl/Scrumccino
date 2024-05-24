@@ -1,0 +1,13 @@
+{% extends 'pivote/base.html' %}
+
+{% block content %}
+<p>Plataforma</p>
+{% if request.user.is_authenticated %}
+
+    {{ user.username | upper }}
+
+    {% else %}
+
+    {% endif %}
+
+    {% endblock %}
