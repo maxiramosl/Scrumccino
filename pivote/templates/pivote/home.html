@@ -12,15 +12,35 @@
             <div class="col-9">
                 <h1>scrumchinooo</h1>
             </div>
-            <div class="col-3">
-                <h6>nombre</h6>
-                <h6>correo</h6>
+            <div class="col-3"> 
+                <h6> nombre {% if not anonimo %} {{usuarioactual}} {% endif %} </h6>
+                <h6>correo {% if not anonimo %} {{correoactual}} {% endif %} </h6>
                 
                 <a class="btn btn-primary" href="./registrar/" role="button">registrarse</a>
                 <a class="btn btn-primary" href="./login/" role="button">login</a>
+                <a class="btn btn-primary" href="./salir/" role="button">salir</a>
+
+                
 
             </div>
         </div>
+
+        
+        {% if not anonimo %}
+        <div class="row">
+            <div class="col"><h1>contenido</h1> </div>
+            <div class="col"><h1>contenido</h1> </div>
+            <div class="col"><h1>contenido</h1> </div>
+            <div class="col"><h1>contenido</h1> </div>
+        
+        </div>
+        {% endif %}
+            
+        
+
+
+    
+        
 
 
     </div>

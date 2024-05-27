@@ -1,12 +1,30 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout,get_user
 from django.contrib.auth.models import User
 
 # Create your views here.
 
 def home(request):
+    usuario=get_user(request)
+    usuarioactual="anonimo"
+    correoactual="anonimo"
+    anonimo=usuario.is_anonymous
 
-    return render(request, "pivote/home.html")
+    if anonimo == False:
+        usuarioactual = usuario.get_username
+        
+        correoactual = usuario.email 
+
+    
+    data={
+        "anonimo":anonimo,
+        "usuarioactual":usuarioactual,
+        "correoactual":correoactual,
+    }
+
+
+
+    return render(request, "pivote/home.html", data)
 
 def logine(request):
     existe=False
@@ -20,7 +38,7 @@ def logine(request):
             existe=True
         else:
             existe=False
-            print("xd")
+            
     data={
         "existe" : existe
     }
@@ -50,3 +68,7 @@ def registrar(request):
         
 
     return render(request, "pivote/registrar.html", data)
+
+def salir(request):
+    logout(request)
+    return redirect('home')
