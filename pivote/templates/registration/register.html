@@ -12,9 +12,10 @@
       
       {{ form | crispy }}
 
-  
-      <button class="btn btn-sm btn-primary float-end" type="submit">Registrarse</button>
+      <a href="{% url 'login' %}">Iniciar sesion</a>
+      <button class="btn btn-sm btn-primary float-end" type="submit" value="registro" >Registrarse</button>
     </form>
+    
   </div>
 
 
