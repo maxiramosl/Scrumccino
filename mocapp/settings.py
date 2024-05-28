@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     'pivote'
 ]
 
+AUTH_USER_MODEL = 'pivote.CustomUser'
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'benjaminr.lillonegrete@gmail.com'
+EMAIL_HOST_PASSWORD = 'rifg mahn kemi pmct'
+EMAIL_USE_TLS= True 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -10,44 +10,60 @@
 
 {% include 'pivote/navbar.html'%}
 
-<br>
-<br>
-<br>
-<br>
+{% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
 
-<header class bg-dark py-5>
-    <center>
-        <div >
-            <h1 class="display-4 fw-bolder">Login</h1>
+<br>
+<br>
+<br>
+<br>
+<html>
+    <body>
+        
+
+        <header class bg-dark py-5>
+            <center>
+                <div >
+                    <h1 class="display-4 fw-bolder">Login</h1>
+                </div>
+            </center>
+        <header/>
+        <div class="container">
+            <div class="row">
+                <center>
+                    <div class="col-8">
+                        <form method="POST" action="{% url 'login' %}">
+                            {%csrf_token%}
+                                            
+                            <div class="mb-3">
+                                <input type="email" class="form-control" name="email" placeholder="Ingrese su correo" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                            <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-secondary">Ingresar</button>
+                        </form>
+                    </div>
+                    <div>
+                        
+                    </div>
+                </center>
+            </div>
+
         </div>
-    </center>
-<header/>
-<div class="container">
-    <div class="row">
-        <center>
-            <div class="col-8">
-                <form method="POST" action="{% url 'login' %}">
-                    {%csrf_token%}
-                    
-                    <div class="mb-3">
-                        <input type="text" class="form-control" name="username" placeholder="Ingrese su usuario" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <input type="email" class="form-control" name="email" placeholder="Ingrese su correo" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                      <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña" required>
-                    </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-                    <button type="submit" class="btn btn-secondary">Ingresar</button>
-                  </form>
-            </div>
-            <div>
-                
-            </div>
-        </center>
-    </div>
-
-</div>
+    </body>
+</html>
