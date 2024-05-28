@@ -38,7 +38,7 @@ def send_email(email, name):
 
     email = EmailMultiAlternatives(
         'Correo de validación',
-        'Pico',
+        'Mensaje',
         settings.EMAIL_HOST_USER,
         [email],
     )

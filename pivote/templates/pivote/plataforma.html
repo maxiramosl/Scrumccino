@@ -4,7 +4,7 @@
 <p>Plataforma</p>
 {% if request.user.is_authenticated %}
 
-    {{ user.username | upper }}
+    Hola, {{ user.username | upper }}
 
     {% else %}
 
