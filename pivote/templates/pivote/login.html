@@ -1,9 +1,11 @@
+<div class="row" style="background-color:burlywood;margin-left: 25vw;margin-right:25vw ;margin-top: 4vh;border-radius: 10%;">
+
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-<div class="row">   
+<div class="row" style="margin-top: 2vh;">   
     <div class="col-2"></div>
     <div class="col-8">
-        <label for="mail" class="form-label">Correo o Usuario: </label>
+        <label for="mail" class="form-label" style="font-weight: bold;">Correo o Usuario: </label>
         <input
           type="text"
           class="form-control"
@@ -18,7 +20,7 @@
 <div class="row">   
     <div class="col-2"></div>
     <div class="col-8">
-        <label for="contraseña" class="form-label">Contraseña: </label>
+        <label for="contraseña" class="form-label" style="font-weight: bold;">Contraseña: </label>
         <input
           type="password"
           class="form-control"
@@ -30,9 +32,8 @@
     </div>
 </div>
 
-<div class="row" style="margin-top: 3vh;">
-    <div class="col-5"></div>
-    <div class="col-7"> <button> Entrar </button> </div>
+<div class="row" style="margin-top: 3vh;margin-bottom: 3vh;">
+    <div class="col-6" style="margin-left: 22vw;"> <button> Entrar </button> </div>
 </div>
 
 
@@ -48,3 +49,4 @@
 
 
 </form>
+</div>
