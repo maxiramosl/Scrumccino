@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout,get_user
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+
 
 # Create your views here.
 
@@ -58,13 +60,20 @@ def registrar(request):
         if (nombre!="" and correo!="" and contraseña !=""):
             NuevoUsuario = User.objects.create_user(username=nombre,email=correo,password=contraseña)
             NuevoUsuario.save
-        
-
+            
+            send_mail(
+            "confirmacion scrumccino",
+            "confirmacion de registro",
+            "scrumccino@gmail.com",
+            [correo],
+            fail_silently=False,)
+            
     data={
         "nombre":nombre,
         "correo":correo,
         "contraseña":contraseña
     }
+
         
 
     return render(request, "pivote/registrar.html", data)
