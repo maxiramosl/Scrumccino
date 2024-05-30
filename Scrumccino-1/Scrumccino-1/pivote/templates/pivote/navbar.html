@@ -1,0 +1,20 @@
+{% load static %}
+        {%if request.user.is_authenticated == True %}
+            <span class="mt-3">Hola {{ request.user.correo | title }}</span>
+            <br>
+            <a href="{% url 'logout' %}" type="button" class="btn btn-outline-secondary me-2 mt-2">Logout</a>
+        
+        {%else%}
+            {% if request.path != '/login/' and request.path != '/register/' %}
+                <a href="{% url 'login' %}" type="button" class="btn btn-outline-primary me-2 mt-3">Iniciar sesión</a>
+            {% elif request.path == '/login/' %}
+                <a href="{% url 'home' %}" type="button" class="btn btn-outline-primary me-2 mt-3">Volver a Inicio</a>    
+            {% else %}
+                <a href="{% url 'inicio' %}" type="button" class="btn btn-outline-primary me-2 mt-3">Volver a página inicial</a>
+                <a href="{% url 'login' %}" type="button" class="btn btn-primary me-2 mt-3">Iniciar sesión</a>
+            {% endif %}
+        {%endif%}
+    </div>   
+</div>
+
+<div id="toppad" class="row"></div>
