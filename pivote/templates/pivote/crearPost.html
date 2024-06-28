@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="{% url 'crearPost' %}" method="post">
+        {% csrf_token %}
+
+        <div class="col-6">
+            <label for="asignatura" class="form-label">Asignatura:</label>
+            <select name="asignatura">
+                {% for asignatura in asignaturas%}
+                    <option value={{asignatura.name}}>{{asignatura.name}}</option>       
+                {% endfor %}
+            </select>
+          </div>
+
+        <div class="row">
+            <div class="col-12">
+              <label for="titulo" class="form-label">Título: </label>
+              <input
+                type="text"
+                class="form-control"
+                name="titulo"
+                placeholder="titulo"
+                id="titulo"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <label for="titulo" class="form-label">Contenido: </label>
+              <input
+                type="text"
+                class="form-control"
+                name="contenido"
+                placeholder="Contenido"
+                id="contenido"
+                required
+              />
+            </div>
+          </div>  
+
+    
+        <div class="row">
+            <button class="boton_formulario" type="submit">Crear Post</button>
+        </div>
+
+    </form>
+    
+</body>
+</html>

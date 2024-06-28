@@ -8,3 +8,20 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+
+class Asignatura(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    def __str__(self):
+        return self.name
+
+class Post(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    titulo = models.CharField(max_length=100, null=True, blank=True)
+    asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE, null=True, blank=True)
+    autor= models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True)
+    fecha= models.DateField(auto_now=True, null=True, blank=True)
+    contenido = models.CharField(max_length=1000, null=True, blank=True)
+    def __str__(self):
+        return self.autor.name +" "+ self.asignatura.name + " " +self.titulo + " " + str(self.fecha)
+
+
