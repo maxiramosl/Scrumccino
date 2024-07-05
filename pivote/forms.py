@@ -61,7 +61,7 @@ class LoginForm(forms.Form):
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-        user = authenticate(username=email, password=password)
+        user = authenticate(email=email, password=password)
         if user is None:
             raise forms.ValidationError("Correo o contraseña incorrectos.")
         return self.cleaned_data
