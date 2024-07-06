@@ -20,7 +20,8 @@ from pivote import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.acceso, name='acceso'),  # URL raíz apunta a la vista de acceso
-    path('register/', views.register, name='register'),
-    path('main/', views.main_page, name='main_page'),  # Página principal después de iniciar sesión
+    path('', views.home, name="home"),
+    path('registrar/',views.registrar, name="registrar"),
+    path('login/', views.logine, name="login"),
+    path('salir/', views.salir, name="salir")
 ]
