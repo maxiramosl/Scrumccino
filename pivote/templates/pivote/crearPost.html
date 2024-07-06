@@ -5,56 +5,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Crear Post</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url("{% static 'pivote/image.png' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        label {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-
-    <form action="{% url 'crearPost' %}" method="post">
-        {% csrf_token %}
-
-        <div class="col-6">
-            <label for="asignatura" class="form-label">Asignatura:</label>
-            <select name="asignatura">
-                {% for asignatura in asignaturas%}
-                    <option value={{asignatura.name}}>{{asignatura.name}}</option>       
-                {% endfor %}
-            </select>
-          </div>
-
-        <div class="row">
-            <div class="col-12">
-              <label for="titulo" class="form-label">Título: </label>
-              <input
-                type="text"
-                class="form-control"
-                name="titulo"
-                placeholder="titulo"
-                id="titulo"
-                required
-              />
+    <div class="form-container">
+        <h2 class="text-center mb-4">Crear Nuevo Post</h2>
+        <form action="{% url 'crearPost' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="asignatura" class="form-label">Asignatura:</label>
+                <select name="asignatura" class="form-control">
+                    {% for asignatura in asignaturas %}
+                        <option value="{{ asignatura.name }}">{{ asignatura.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
-              <label for="titulo" class="form-label">Contenido: </label>
-              <input
-                type="text"
-                class="form-control"
-                name="contenido"
-                placeholder="Contenido"
-                id="contenido"
-                required
-              />
+            <div class="form-group">
+                <label for="titulo" class="form-label">Título:</label>
+                <input type="text" class="form-control" name="titulo" placeholder="Título" id="titulo" required />
             </div>
-          </div>  
-
-    
-        <div class="row">
-            <button class="boton_formulario" type="submit">Crear Post</button>
-        </div>
-
-    </form>
-    
+            <div class="form-group">
+                <label for="contenido" class="form-label">Contenido:</label>
+                <textarea class="form-control" name="contenido" placeholder="Contenido" id="contenido" rows="5" required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-custom">Crear Post</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
