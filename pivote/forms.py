@@ -1,5 +1,6 @@
 from django import forms
-from .models import User
+from .models import User, Test, Pregunta
+from django.forms import inlineformset_factory
 
 
 # permite crear formularios basados en modelos de la base de datos.
@@ -55,4 +56,35 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("La contraseña no debe coincidir con su nombre.")
         return password
     
+
+class TestForm(forms.ModelForm):
+    class Meta:
+        model = Test
+        fields = [
+            'titulo', 'tema'
+        ]
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'tema': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class PreguntaForm(forms.ModelForm):
+    class Meta:
+        model = Pregunta
+        fields = [
+            'enunciado', 'opcionA','opcionB','opcionC','opcionD', 'correcta'
+        ]
+    
+        widgets = {
+            'enunciado': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionA': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionB': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionC': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionD': forms.TextInput(attrs={'class': 'form-control'}),
+            'correcta': forms.Select(attrs={'class': 'form-control'}),
+        }
+
         
+
+PreguntaFormSet = inlineformset_factory(Test, Pregunta, form=PreguntaForm, can_delete=True, extra=1, min_num=1, validate_min=True )
+
