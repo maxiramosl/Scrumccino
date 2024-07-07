@@ -1,0 +1,68 @@
+
+.tamaño-logo {
+    width: 150px; 
+    height: auto; 
+}
+.texto {
+    text-align: center;
+}
+.centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.navbar-custom {
+    background-color: transparent !important;
+    backdrop-filter: blur(10px); /* Aplica un efecto de desenfoque al fondo */
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-nav .nav-link {
+    color: white; /* Color del texto en la barra de navegación */
+}
+.borde {
+    border: 1px solid #564410;
+    padding: 30px;
+    width: 440px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(99, 39, 15, 0.1);
+    border-radius: 1px;
+    background-color: #0c131c;
+}
+.custom-form {
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    padding: 10px;
+    color: white; 
+}
+.custom-form input, 
+.custom-form button {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid yellow; 
+    color: white; 
+    border-radius: 0;
+    padding: 10px 5px;
+    width: 100%; 
+}
+.custom-form input:focus {
+    outline: none;
+    box-shadow: none;
+}
+.custom-form button {
+    margin-top: 10px;
+    cursor: pointer;
+}
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: auto;
+    z-index: 1050;
+}
+.alert-custom {
+    padding: 10px 20px;
+    font-size: 14px;
+    display: inline-block;
+}

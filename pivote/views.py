@@ -1,22 +1,92 @@
-from django.shortcuts import render
-from .forms import UserRegistrationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout,get_user
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.contrib import messages
+
+
+# Create your views here.
 
 def home(request):
-    if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'pivote/home.html', {'form': form, 'message': '¡Usuario registrado correctamente!'})
-    else:
-        form = UserRegistrationForm()
-    return render(request, 'pivote/home.html', {'form': form})
+    usuario=get_user(request)
+    usuarioactual="anonimo"
+    correoactual="anonimo"
+    anonimo=usuario.is_anonymous
 
-def register(request):
-    if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'pivote/home.html', {'form': form, 'message': 'Registro exitoso, por favor verifica tu correo'})
-    else:
-        form = UserRegistrationForm()
-    return render(request, 'pivote/home.html', {'form': form})
+    if anonimo == False:
+        usuarioactual = usuario.get_username
+        
+        correoactual = usuario.email 
+
+    
+    data={
+        "anonimo":anonimo,
+        "usuarioactual":usuarioactual,
+        "correoactual":correoactual,
+    }
+
+
+
+    return render(request, "pivote/home.html", data)
+
+def logine(request):
+    existe=False
+    if request.method=="POST":
+        logout(request)
+        nombre=request.POST.get("nombre")
+        contraseña=request.POST.get("contraseña")
+        user = authenticate(request, username=nombre, password=contraseña)
+        if user is not None:
+            login(request, user)
+            existe=True
+        else:
+            existe=False
+            
+    data={
+        "existe" : existe
+    }
+    
+    return render(request,"pivote/login.html",data)
+
+def registrar(request):
+    nombre=""
+    correo=""
+    contraseña=""
+
+    if request.method=="POST":
+        nombre=request.POST.get("nombre")
+        correo=request.POST.get("correo")
+        contraseña=request.POST.get("contraseña")
+        #user = User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")
+        if (nombre!="" and correo!="" and contraseña !=""):
+            NuevoUsuario = User.objects.create_user(username=nombre,email=correo,password=contraseña)
+            NuevoUsuario.save
+            
+            send_mail(
+            "confirmacion scrumccino",
+            "confirmacion de registro",
+            "scrumccino@gmail.com",
+            [correo],
+            fail_silently=False,)
+            
+    data={
+        "nombre":nombre,
+        "correo":correo,
+        "contraseña":contraseña
+    }
+
+        
+
+    return render(request, "pivote/registrar.html", data)
+
+def salir(request):
+    logout(request)
+    return redirect('home')
+
+
+def custom_logout(request):
+    logout(request)
+    messages.success(request, "Se cerró la sesión con éxito.")
+    return redirect('home')  # Redirigir a la página de inicio u otra página de tu elección.

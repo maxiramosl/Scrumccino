@@ -1,8 +1,7 @@
 from django import forms
 from .models import User
+from django.contrib.auth import authenticate
 
-
-# permite crear formularios basados en modelos de la base de datos.
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User
@@ -34,25 +33,36 @@ class UserRegistrationForm(forms.ModelForm):
         numero = False
         password = self.cleaned_data.get('password')
         name = self.cleaned_data.get('name')
-        if len(password) < 6 :
+        if len(password) < 6:
             raise forms.ValidationError("La contraseña debe tener al menos 6 caracteres.")
         for minus in password:
-            if minus.islower()== True:
+            if minus.islower():
                 minuscula = True
         if not minuscula:
             raise forms.ValidationError("La contraseña debe tener al menos una minuscula.")
         for mayus in password:
-            if mayus.isupper()==True:
+            if mayus.isupper():
                 mayuscula = True
         if not mayuscula:
             raise forms.ValidationError("La contraseña debe tener al menos una mayuscula.")
         for num in password:
-            if num.isdigit()==True:
-                numero=True
+            if num.isdigit():
+                numero = True
         if not numero:
             raise forms.ValidationError("La contraseña debe tener al menos un numero.")
         if password.count(name):
             raise forms.ValidationError("La contraseña no debe coincidir con su nombre.")
         return password
-    
-        
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(label='Correo', max_length=254, widget=forms.EmailInput(attrs={'placeholder': 'Correo'}))
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'placeholder': 'Contraseña'}))
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
+        user = authenticate(email=email, password=password)
+        if user is None:
+            raise forms.ValidationError("Correo o contraseña incorrectos.")
+        return self.cleaned_data
+
