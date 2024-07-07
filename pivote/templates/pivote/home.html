@@ -36,32 +36,80 @@
               </li>
               {% if not anonimo %}
               <li class="nav-item">
-                <a class="nav-link" href="./salir/">Cerrar sesion</a>
+                <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
               </li>
               {% endif %}
               <li class="nav-item">
                 <a class="nav-link disabled" aria-disabled="true" style="color: #ba9b2a;">Bienvenido a MOCA {% if not anonimo %} {{usuarioactual}} {% endif %}</a>
               </li>
-    
-              
             </ul>
           </div>
         </div>
       </nav>
+    <div class="container mt-4">
+        {% if messages %}
+            <div class="alert-container">
+                {% for message in messages %}
+                    <div class="alert alert-success alert-custom alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
     <div class="container">
         
         {% if not anonimo %}
-        <div class="row" style="color: #ba9b2a;">
-            <div class="col"><h1>contenido</h1> </div>
-            <div class="col"><h1>contenido</h1> </div>
-            <div class="col"><h1>contenido</h1> </div>
-            <div class="col"><h1>contenido</h1> </div>
         
+        <div id="carouselExampleDark" class="carousel carousel-dark slide">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+              <img src="https://cdn.prod.website-files.com/5f5a53e153805db840dae2db/643ec21a9c45304c1a3a07b7_Que%20es%20un%20lenguaje%20de%20programacion%20JavaScript.jpg" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block" style="color: #ba9b2a;">
+                <h1>Programacion</h5>
+                <h3>Descifrando el código: ¿Qué es un lenguaje de programación?.</p>
+              </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+              <img src="https://www.coldelvalle.edu.mx/wp-content/uploads/2023/12/9.10_autores_de_la_literatura_universal-min.jpg" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block" style="color: #ba9b2a;">
+                <h1>Literatura</h5>
+                <h3>El Amor en la Literatura y el Arte: Inspiración y Expresión.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="https://www.tuproyectodevida.pe/wp-content/uploads/2020/06/%C2%BFC%C3%B3mo-ser-bueno-para-las-Matem%C3%A1ticas-1200x628.jpg" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block" style="color: #ba9b2a;">
+                <h1>Matematicas</h5>
+                <h3>El primer problema con las matemáticas es que no se entiende lo que se lee.</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
         {% endif %}
             
     </div>
     
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

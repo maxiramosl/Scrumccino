@@ -54,24 +54,15 @@
     margin-top: 10px;
     cursor: pointer;
 }
-#popup {
-    display: none;
+.alert-container {
     position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    top: 20px;
+    right: 20px;
+    width: auto;
+    z-index: 1050;
 }
-#popupOverlay {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+.alert-custom {
+    padding: 10px 20px;
+    font-size: 14px;
+    display: inline-block;
 }

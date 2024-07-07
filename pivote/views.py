@@ -105,3 +105,13 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# views.py
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.contrib import messages
+
+def custom_logout(request):
+    logout(request)
+    messages.success(request, "Se cerró la sesión con éxito.")
+    return redirect('home')  # Redirigir a la página de inicio u otra página de tu elección.

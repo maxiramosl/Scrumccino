@@ -18,12 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from pivote import views
 from django.contrib.auth import views as auth_views
-
+from pivote.views import custom_logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
     path('registrar/',views.registrar, name="registrar"),
     path('login/', views.logine, name="login"),
-    path('salir/', views.salir, name="salir")
+    path('salir/', custom_logout, name='logout')
 ]
