@@ -65,3 +65,4 @@ class LoginForm(forms.Form):
         if user is None:
             raise forms.ValidationError("Correo o contraseña incorrectos.")
         return self.cleaned_data
+
