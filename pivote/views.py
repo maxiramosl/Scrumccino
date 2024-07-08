@@ -5,6 +5,8 @@ from django.core.mail import send_mail
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.contrib import messages
+from .models import *
+
 
 
 # Create your views here.
@@ -90,3 +92,17 @@ def custom_logout(request):
     logout(request)
     messages.success(request, "Se cerró la sesión con éxito.")
     return redirect('home')  # Redirigir a la página de inicio u otra página de tu elección.
+
+def crearPost(request):
+    if request.method == "POST":
+        print(request.user)
+        nuevo_post = Post.objects.create(
+            asignatura = Asignatura.objects.get(name=request.POST.get("asignatura")),
+            titulo = request.POST.get("titulo"),
+            autor = request.user,
+            contenido = request.POST.get("contenido")
+        )
+    data = {}
+    asignaturas = Asignatura.objects.all()
+    data["asignaturas"] = asignaturas
+    return render(request, "pivote/crearPost.html", data)
