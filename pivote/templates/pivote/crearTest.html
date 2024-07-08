@@ -1,0 +1,78 @@
+{% extends 'pivote/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<form method="post">
+        {% csrf_token %}
+        <div class="tituloCrear row">
+            <h1>Crear test</h1>
+
+        </div>
+
+        <div class="row card test">
+            {{ test_form.as_p }}
+        </div>
+        {{ preguntas_formset.management_form }}
+            
+        <div id="preguntas_set">
+            {% for pregunta_form in preguntas_formset %}
+
+            <div class="pregunta row card">
+                <h2>Nueva pregunta</h2>
+                <br>
+                {{ pregunta_form.as_p }}
+            </div>
+            {% endfor %}
+
+        </div>
+    <div class="botones row">
+        <div class="col-2">
+
+        </div>
+        <div class="col-5">
+            <button type="button" onclick="addPregunta()" id="incrementar" class="btn">Añadir pregunta</button>
+
+        </div>
+        <div class="col-4">
+            <button type="submit" class="btn">Submit</button>
+
+        </div>
+    </div>
+</form>
+
+<script>
+    document.getElementById('addPregunta').addEventListener('click', addPregunta);
+
+    function addPregunta() {
+        // Obtiene el número total de formularios actualmente
+        const totalForms = document.querySelector('#id_preguntas-TOTAL_FORMS');
+        const currentIndex = parseInt(totalForms.value);
+
+        // Obtiene el primer formset para clonarlo
+        const originalForm = document.querySelector('.pregunta.card');
+        const newForm = originalForm.cloneNode(true);
+
+        // Actualiza los atributos de los elementos clonados
+        const inputs = newForm.querySelectorAll('input, select, textarea, label');
+        inputs.forEach(input => {
+            if (input.name) {
+                input.name = input.name.replace(/preguntas-\d+-/, `preguntas-${currentIndex}-`);
+            }
+            if (input.id) {
+                input.id = input.id.replace(/id_preguntas-\d+-/, `id_preguntas-${currentIndex}-`);
+            }
+            if (input.tagName.toLowerCase() === 'input') {
+                input.value = ''; // Clear the value of the input
+            }
+        });
+
+        // Añadir el nuevo formset al contenedor
+        document.querySelector('#preguntas_set').appendChild(newForm);
+
+        // Incrementar el número total de formularios
+        totalForms.value = currentIndex + 1;
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'pivote/home.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row visTitulo">
+    <h1>{{ test.titulo }}</h1>
+        <p>{{ test.tema }}</p>
+    </div>
+    <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card visTest">
+                    {% for pregunta in test.preguntas.all %}
+                    <div class="visPregunta">
+                        <ul>
+                            <h2 class="num">Pregunta {{ forloop.counter }}</h2>
+                                <h5 class="enunciado">{{ pregunta.enunciado }}</h5>
+                                <li class="opcion">A.- {{ pregunta.opcionA }}</li> <br>
+                                <li class="opcion">B.- {{ pregunta.opcionB }}</li> <br>
+                                <li class="opcion">C.- {{ pregunta.opcionC }}</li> <br>
+                                <li class="opcion">D.- {{ pregunta.opcionD }}</li> <br>
+                                <li class="opcion">Respuesta correcta: {{ pregunta.correcta }}</li>
+                            </ul>
+                            <br>
+                            <hr>
+                    </div>
+                    {% endfor %}
+            </div>
+        </form>
+    </div>
+</div>
+>
+{% endblock %}

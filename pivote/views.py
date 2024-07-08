@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout,get_user
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -6,7 +6,9 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.contrib import messages
 from .models import *
-
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import TestForm, PreguntaFormSet
 
 
 # Create your views here.
@@ -106,3 +108,44 @@ def crearPost(request):
     asignaturas = Asignatura.objects.all()
     data["asignaturas"] = asignaturas
     return render(request, "pivote/crearPost.html", data)
+
+#Crear Test
+def crearTest(request):
+    if request.method == 'POST':
+
+        test_form = TestForm(request.POST)
+
+        if test_form.is_valid():
+            test = test_form.save()
+            preguntas_formset = PreguntaFormSet(request.POST, instance=test)
+            if preguntas_formset.is_valid():
+                preguntas_formset.save()
+                
+                send_mail(
+                    'New Test Created',
+                    f'Test "{test.titulo}" has been created.',
+                    settings.EMAIL_HOST_USER,
+                    ['jenifer.castillo2103@gmail.com'],
+                    fail_silently=False,
+                )
+                return redirect('verTest', test_id=test.id)
+            else:
+                print(preguntas_formset.errors)
+    else:
+        test_form = TestForm()
+        preguntas_formset = PreguntaFormSet(queryset=Pregunta.objects.none())
+
+    context = {
+        'test_form': test_form,
+        'preguntas_formset': preguntas_formset,
+    }
+
+    return render(request, 'pivote/crearTest.html', context)
+
+def verTest(request, test_id):
+    test = get_object_or_404(Test, id=test_id)
+    return render(request, 'pivote/verTest.html', {'test': test})
+
+def allTestList(request):
+    tests = Test.objects.all()
+    return render(request, 'pivote/allTestList.html', {'tests': tests})
