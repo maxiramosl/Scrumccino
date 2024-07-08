@@ -1,22 +1,23 @@
 from django import forms
-from .models import User
+from .models import User, Pregunta, Test
 from django.contrib.auth import authenticate
+from django.forms import inlineformset_factory
 
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['name', 'email', 'password']
+        fields = ['username', 'email', 'password']
         widgets = {
             'password': forms.PasswordInput(),
         }
         labels = {
-            'name': 'Nombre',
+            'username': 'Nombre',
             'email': 'Correo',
             'password': 'Contraseña',
         }
 
-    def clean_name(self):
-        name = self.cleaned_data.get('name')
+    def clean_username(self):
+        name = self.cleaned_data.get('username')
         if User.objects.filter(name=name).exists():
             raise forms.ValidationError("Un usuario ya está registrado con este nombre.")
         return name
@@ -53,6 +54,38 @@ class UserRegistrationForm(forms.ModelForm):
         if password.count(name):
             raise forms.ValidationError("La contraseña no debe coincidir con su nombre.")
         return password
+
+
+class TestForm(forms.ModelForm):
+    class Meta:
+        model = Test
+        fields = [
+            'titulo', 'tema'
+        ]
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'tema': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class PreguntaForm(forms.ModelForm):
+    class Meta:
+        model = Pregunta
+        fields = [
+            'enunciado', 'opcionA','opcionB','opcionC','opcionD', 'correcta'
+        ]
+    
+        widgets = {
+            'enunciado': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionA': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionB': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionC': forms.TextInput(attrs={'class': 'form-control'}),
+            'opcionD': forms.TextInput(attrs={'class': 'form-control'}),
+            'correcta': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+        
+
+PreguntaFormSet = inlineformset_factory(Test, Pregunta, form=PreguntaForm, can_delete=True, extra=1, min_num=1, validate_min=True )
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Correo', max_length=254, widget=forms.EmailInput(attrs={'placeholder': 'Correo'}))

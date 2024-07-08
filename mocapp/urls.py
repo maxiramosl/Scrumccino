@@ -26,5 +26,8 @@ urlpatterns = [
     path('registrar/',views.registrar, name="registrar"),
     path('login/', views.logine, name="login"),
     path('salir/', custom_logout, name='logout'),
-    path("crearPost/",views.crearPost, name='crearPost')
+    path("crearPost/",views.crearPost, name='crearPost'),
+    path('crearTest/', views.crearTest, name='crearTest'),
+    path('test/<int:test_id>/', views.verTest, name="verTest"),
+    path('allTest/', views.allTestList, name='allTest'),
 ]

@@ -66,3 +66,161 @@
     font-size: 14px;
     display: inline-block;
 }
+
+
+.texto {
+    text-align: center;
+}
+
+.centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.borde{
+    border: 2px solid #564410  ;
+    padding: 30px;
+    width: 440px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(99, 39, 15, 0.1);
+    border-radius: 1px;
+    background-color:  #0c131c ;
+
+}
+
+.custom-form {
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    padding: 10px;
+    color: white; 
+}
+
+.custom-form input, 
+.custom-form button {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid yellow; 
+    color: white; 
+    border-radius: 0;
+    padding: 10px 5px;
+    width: 100%; 
+}
+
+.custom-form input:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.custom-form button {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+h1{
+    color: #ba9b2a;
+}
+
+h2{
+    color: #ba9b2a;
+}
+
+.pregunta{
+    background-color: #0c131c;
+    border: 1px solid #9b7f2c;
+    margin: 5vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    padding: 3vw;
+}
+
+.test{
+    box-sizing: border-box;
+    border: 1px solid #9b7f2c;
+    background-color: #0c131c;
+    margin: 7vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    padding: 5vw;
+}
+
+.tituloCrear{
+    margin-top: 3vw;
+    margin-left: 7vw;
+    }
+
+.btn{
+    background-color: #564410;
+    color: aliceblue;
+    margin: 5vw;
+}
+
+.btn:hover{
+    background-color: #a18466;
+}
+
+.listaCard{
+    background-color: #564410;
+    border: 1px solid #9b7f2c;
+    border-radius: 10px;
+    margin-top: 3vw;
+}
+
+.liLista{
+    margin-top: 3vw;
+    margin-left: 2vw;
+    padding: 2vw;
+    background-color: #0c131c;
+    margin-right: 2vw;
+    border: 1px solid #9b7f2c
+}
+.tituloLista {
+    margin-top: 2vw;
+}
+
+.visTest{
+    background-color: #0c131c;
+    padding-top: 2vw;
+    padding-bottom: 3vw;
+    padding-right: 2vw;
+    border: 2px solid #9b7f2c;
+}
+
+p{
+    color: #e2b36c;
+}
+
+.visPregunta{
+    margin-top: 2vw;
+}
+
+.opcion{
+    margin-left: 3vw;
+    margin-right: 3vw;
+    color: #ba9b2a;
+}
+
+.enunciado{
+    margin: 2vw;
+    color: #ba9b2a;
+}
+
+.num{
+    margin: 2vw;
+    color: #ba9b2a; 
+}
+
+hr{
+    height:2px;
+    border-width:0;
+    color:gray;
+    background-color:#564410;
+}
+.visTitulo{
+    margin: 3vw;
+}
+
+a{
+    color: #0c131c;
+}
