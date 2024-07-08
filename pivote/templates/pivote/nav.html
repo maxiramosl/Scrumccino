@@ -13,10 +13,10 @@
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./registrar/">Registrarse</a>
+            <a class="nav-link" href="{% url 'registrar' %}">Registrarse</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./login/">Iniciar sesion</a>
+            <a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a>
           </li>
           {% if not anonimo %}
           <li class="nav-item">
