@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout,get_user
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.contrib import messages
 from .models import *
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -106,3 +108,25 @@ def crearPost(request):
     asignaturas = Asignatura.objects.all()
     data["asignaturas"] = asignaturas
     return render(request, "pivote/crearPost.html", data)
+
+@login_required(login_url='/login/')
+def material(request):
+    es_profesor = request.user.groups.filter(name='profesor').exists()
+    posts = Post.objects.all
+    return render(request, "pivote/material.html", { "posts":posts, "es_profesor":es_profesor})
+
+@csrf_exempt
+def delete(request):
+    usuario=get_user(request)
+    correo=usuario.email
+    send_mail(
+            "su cuenta ha sido eliminada",
+            "cuenta eliminada",
+            "scrumccino@gmail.com",
+            [correo],
+            fail_silently=False,)
+    
+    
+    usuario.delete()       
+    messages.success(request, "Se ha eliminado la cuenta con éxito")
+    return redirect('home')
