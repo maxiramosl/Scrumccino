@@ -13,6 +13,9 @@
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'material' %}">Material</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'registrar' %}">Registrarse</a>
           </li>
           <li class="nav-item">
@@ -28,6 +31,9 @@
           {% if not anonimo %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onclick="return confirm('Estás segur@?');" href="delete/">Eliminar cuenta</a>
           </li>
           {% endif %}
           <li class="nav-item">

@@ -1,0 +1,27 @@
+{% extends 'pivote/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    
+<div class="row">
+    {%for post in posts %}
+    <div class="col-lg-3">
+        <img class="thumbnail" src="{% static 'pivote/logo.png' %}">
+        <div class="box-element product">
+            <h3><strong>{{post.asignatura}}</strong></h6>
+            <h5><strong>{{post.titulo}}</strong></h6>
+            <hr>
+    
+            <button  class="btn btn-outline-secondary add-btn">Ver</button>
+            {% if request.user.is_staff or es_profesor %}
+            <button  class="btn btn-outline-secondary add-btn">Editar</button>
+            <button  class="btn btn-outline-secondary add-btn">Borrar</button>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+    
+{% endblock %}
