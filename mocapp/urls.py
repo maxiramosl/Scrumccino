@@ -30,4 +30,7 @@ urlpatterns = [
     path('crearTest/', views.crearTest, name='crearTest'),
     path('test/<int:test_id>/', views.verTest, name="verTest"),
     path('allTest/', views.allTestList, name='allTest'),
+    path("material/",views.material, name='material'),
+    path("delete/",views.delete, name='elimCuenta')
+    
 ]
