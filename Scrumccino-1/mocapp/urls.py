@@ -21,7 +21,18 @@ from pivote import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
+<<<<<<< Updated upstream:Scrumccino-1/mocapp/urls.py
     path('login/',views.login, name="login"),
     path('logout/',views.logout, name="logout"),
     
+=======
+    path('registrar/',views.registrar, name="registrar"),
+    path('login/', views.logine, name="login"),
+    path('salir/', custom_logout, name='logout'),
+    path("crearPost/",views.crearPost, name='crearPost'),
+    path('crearTest/', views.crearTest, name='crearTest'),
+    path('test/<int:test_id>/', views.verTest, name="verTest"),
+    path('allTest/', views.allTestList, name='allTest'),
+    path('deleteTest/<int:test_id>/', views.deleteTest, name='deleteTest'),
+>>>>>>> Stashed changes:mocapp/urls.py
 ]
