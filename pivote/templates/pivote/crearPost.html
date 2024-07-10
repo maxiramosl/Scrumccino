@@ -39,11 +39,33 @@
         .btn-custom:hover {
             background-color: #0056b3;
         }
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2 class="text-center mb-4" style="font-weight: bolder;">Crear Nuevo Post</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <form action="{% url 'crearPost' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
@@ -56,11 +78,11 @@
             </div>
             <div class="form-group">
                 <label for="titulo" class="form-label">Título:</label>
-                <input type="text" class="form-control" name="titulo" placeholder="Título" id="titulo" required />
+                <input type="text" class="form-control" name="titulo" placeholder="Título" id="titulo" />
             </div>
             <div class="form-group">
                 <label for="contenido" class="form-label">Contenido:</label>
-                <textarea class="form-control" name="contenido" placeholder="Contenido" id="contenido" rows="5" required></textarea>
+                <textarea class="form-control" name="contenido" placeholder="Contenido" id="contenido" rows="5"></textarea>
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-custom">Crear Post</button>

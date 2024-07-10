@@ -102,19 +102,26 @@ def custom_logout(request):
     return redirect('home')  # Redirigir a la página de inicio u otra página de tu elección.
 
 def crearPost(request):
-  
     if request.method == "POST":
-        print(request.user)
-        nuevo_post = Post.objects.create(
-            asignatura = Asignatura.objects.get(name=request.POST.get("asignatura")),
-            titulo = request.POST.get("titulo"),
-            autor = request.user,
-            contenido = request.POST.get("contenido")
-        )
-    data = {}
+        asignatura_nombre = request.POST.get("asignatura")
+        titulo = request.POST.get("titulo")
+        contenido = request.POST.get("contenido")
+        
+        if not asignatura_nombre or not titulo or not contenido:
+            messages.error(request, 'Por favor completa todos los campos.')
+        else:
+            asignatura = Asignatura.objects.get(name=asignatura_nombre)
+            nuevo_post = Post.objects.create(
+                asignatura=asignatura,
+                titulo=titulo,
+                autor=request.user,
+                contenido=contenido
+            )
+            messages.success(request, 'El post ha sido creado exitosamente.')
+            return redirect('crearPost')
+    
     asignaturas = Asignatura.objects.all()
-    data["asignaturas"] = asignaturas
-    return render(request, "pivote/crearPost.html", data)
+    return render(request, "pivote/crearPost.html", {'asignaturas': asignaturas})
 
 
 def crearTest(request):
