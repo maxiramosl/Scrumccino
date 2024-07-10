@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def home(request):
+
     usuario=get_user(request)
     usuarioactual="anonimo"
     correoactual="anonimo"
@@ -37,6 +38,7 @@ def home(request):
     return render(request, "pivote/home.html", data)
 
 def logine(request):
+
     existe=False
     if request.method=="POST":
         logout(request)
@@ -56,6 +58,7 @@ def logine(request):
     return render(request,"pivote/login.html",data)
 
 def registrar(request):
+
     nombre=""
     correo=""
     contraseña=""
@@ -87,16 +90,19 @@ def registrar(request):
     return render(request, "pivote/registrar.html", data)
 
 def salir(request):
+  
     logout(request)
     return redirect('home')
 
 
 def custom_logout(request):
+  
     logout(request)
     messages.success(request, "Se cerró la sesión con éxito.")
     return redirect('home')  # Redirigir a la página de inicio u otra página de tu elección.
 
 def crearPost(request):
+  
     if request.method == "POST":
         print(request.user)
         nuevo_post = Post.objects.create(
@@ -112,6 +118,7 @@ def crearPost(request):
 
 
 def crearTest(request):
+
     if request.method == 'POST':
 
         test_form = TestForm(request.POST)
@@ -144,20 +151,23 @@ def crearTest(request):
     return render(request, 'pivote/crearTest.html', context)
 
 def verTest(request, test_id):
+    
     test = get_object_or_404(Test, id=test_id)
     return render(request, 'pivote/verTest.html', {'test': test})
 
 def allTestList(request):
+    
     tests = Test.objects.all()
     return render(request, 'pivote/allTestList.html', {'tests': tests})
 @login_required(login_url='/login/')
 def material(request):
-    es_profesor = request.user.groups.filter(name='profesor').exists()
+ 
     posts = Post.objects.all
-    return render(request, "pivote/material.html", { "posts":posts, "es_profesor":es_profesor})
+    return render(request, "pivote/material.html", { "posts":posts})
 
 @csrf_exempt
 def delete(request):
+
     usuario=get_user(request)
     correo=usuario.email
     send_mail(
@@ -171,65 +181,14 @@ def delete(request):
     usuario.delete()       
     messages.success(request, "Se ha eliminado la cuenta con éxito")
     return redirect('home')
+def eliminarPost(request,id):
 
+    Post.objects.get(pk=id).delete()
 
-def crearTest(request):
+    return redirect(material)
+
+def deleteTest(request,test_id):
+    test=get_object_or_404(Test, id=test_id)
     if request.method == 'POST':
-
-        test_form = TestForm(request.POST)
-
-        if test_form.is_valid():
-            test = test_form.save()
-            preguntas_formset = PreguntaFormSet(request.POST, instance=test)
-            if preguntas_formset.is_valid():
-                preguntas_formset.save()
-                
-                # send_mail(
-                #     'New Test Created',
-                #     f'Test "{test.titulo}" has been created.',
-                #     settings.EMAIL_HOST_USER,
-                #     ['jenifer.castillo2103@gmail.com'],
-                #     fail_silently=False,
-                # )
-                return redirect('verTest', test_id=test.id)
-            else:
-                print(preguntas_formset.errors)
-    else:
-        test_form = TestForm()
-        preguntas_formset = PreguntaFormSet(queryset=Pregunta.objects.none())
-
-    context = {
-        'test_form': test_form,
-        'preguntas_formset': preguntas_formset,
-    }
-
-    return render(request, 'pivote/crearTest.html', context)
-
-def verTest(request, test_id):
-    test = get_object_or_404(Test, id=test_id)
-    return render(request, 'pivote/verTest.html', {'test': test})
-
-def allTestList(request):
-    tests = Test.objects.all()
-    return render(request, 'pivote/allTestList.html', {'tests': tests})
-@login_required(login_url='/login/')
-def material(request):
-    es_profesor = request.user.groups.filter(name='profesor').exists()
-    posts = Post.objects.all
-    return render(request, "pivote/material.html", { "posts":posts, "es_profesor":es_profesor})
-
-@csrf_exempt
-def delete(request):
-    usuario=get_user(request)
-    correo=usuario.email
-    send_mail(
-            "su cuenta ha sido eliminada",
-            "cuenta eliminada",
-            "scrumccino@gmail.com",
-            [correo],
-            fail_silently=False,)
-    
-    
-    usuario.delete()       
-    messages.success(request, "Se ha eliminado la cuenta con éxito")
-    return redirect('home')
+        test.delete()
+        return redirect('allTest')

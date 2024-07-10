@@ -31,6 +31,8 @@ urlpatterns = [
     path('test/<int:test_id>/', views.verTest, name="verTest"),
     path('allTest/', views.allTestList, name='allTest'),
     path("material/",views.material, name='material'),
-    path("delete/",views.delete, name='elimCuenta')
+    path("delete/",views.delete, name='elimCuenta'),
+    path("material/eliminarPost/<int:id>/",views.eliminarPost, name='eliminarPost'),
+    path('deleteTest/<int:test_id>/', views.deleteTest, name='deleteTest'),
     
 ]

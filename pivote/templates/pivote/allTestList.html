@@ -13,6 +13,13 @@
                     <h2>{{ test.titulo }}</h2>
                     <p>{{ test.tema }}</p>
 
+
+                    {% if request.user.is_staff or es_profesor %}
+                    <form id="form-{{ test.id }}" method="post" action="{% url 'deleteTest' test.id %}">
+                        {% csrf_token %}
+                        <button type="submit" onclick="deleteForm({{ test.id }})">Borrar Test</button>
+                    {% endif %}
+                    </form>
                 </li>
             </a>
             </li>
@@ -20,5 +27,30 @@
         </ul>
     </div>
 </div>
+
+
+<script>
+    function deleteForm(testId) {
+        if (confirm("¿Estás seguro de que deseas eliminar este test?")) {
+            fetch(`/DeleteTest/${testId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById(`test-${testId}`).remove(); // Elimina el elemento de la lista
+                }
+            }).catch(error => {
+                console.error('Error al eliminar el test:', error);
+            });
+            const totalForms = document.querySelector('#id_preguntas-TOTAL_FORMS');
+            const currentIndex = parseInt(totalForms.value);
+    
+            totalForms.value = currentIndex - 1;
+        }
+    }
+</script>
 
 {% endblock %}

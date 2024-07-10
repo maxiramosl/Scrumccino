@@ -2,21 +2,31 @@
 {% load static %}
 
 {% block content %}
+<script>
+    function confirmacion(){
+        var respuesta = cofirm("¿seguro que desea eliminar post, este cambio es permanente?");
 
+        if (respuesta == true){
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
     
 <div class="row">
     {%for post in posts %}
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="margin-top: 10mm;">
         <img class="thumbnail" src="{% static 'pivote/logo.png' %}">
-        <div class="box-element product">
+        <div class="box-element product" >
             <h3><strong>{{post.asignatura}}</strong></h6>
             <h5><strong>{{post.titulo}}</strong></h6>
             <hr>
     
-            <button  class="btn btn-outline-secondary add-btn">Ver</button>
+            <button  class="btn-outline-secondary add-btn">Ver</button>
             {% if request.user.is_staff or es_profesor %}
-            <button  class="btn btn-outline-secondary add-btn">Editar</button>
-            <button  class="btn btn-outline-secondary add-btn">Borrar</button>
+            <button  class="btn-outline-secondary add-btn">Editar</button>
+            <a class="btn-outline-secondary add-btn" onclick="return confirm('Esta accion es permanente, esta segur@?');" href="eliminarPost/{{post.id}}/"> borrar </a>
             {% endif %}
         </div>
     </div>
